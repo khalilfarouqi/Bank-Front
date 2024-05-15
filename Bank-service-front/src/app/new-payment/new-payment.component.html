@@ -1,1 +1,37 @@
-<p>new-payment works!</p>
+<app-navbar></app-navbar>
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card bg-dark text-white" style="border-radius: 1rem;">
+            <div class="card-body p-5">
+              <form>
+                <div class="mb-md-4 mt-md-4 pb-0">
+                  <h2 class="fw-bold mb-2 text-uppercase text-center">Nouveau Virement</h2>
+                  <p class="text-white-50 mb-5 text-center">Entrez les détails du virement pour le client.</p>
+                  
+                  <div class="form-outline form-white mb-4">
+                    <input type="text" formControlName="clientName" class="form-control form-control-lg" placeholder="Nom du Client" />
+                  </div>
+                  <div class="form-outline form-white mb-4">
+                    <input type="number" formControlName="clientAccountNumber" class="form-control form-control-lg" placeholder="Numéro de Compte du Client" />
+                  </div>
+                  <div class="form-outline form-white mb-4">
+                    <input type="number" formControlName="amount" class="form-control form-control-lg" placeholder="Montant" />
+                  </div>
+                  <div class="form-outline form-white mb-4">
+                    <textarea formControlName="transferDetails" class="form-control form-control-lg" placeholder="Détails du Virement" rows="3"></textarea>
+                  </div>
+  
+                  <div class="text-center">
+                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Effectuer le Virement</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>  
+  
