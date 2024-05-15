@@ -11,6 +11,7 @@ import { NewBankAccountComponent } from './new-bank-account/new-bank-account.com
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NewPaymentComponent } from './new-payment/new-payment.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     NewBankAccountComponent,
     DashboardComponent,
     NewPaymentComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
