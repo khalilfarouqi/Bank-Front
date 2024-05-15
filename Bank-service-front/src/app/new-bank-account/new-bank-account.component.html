@@ -1,0 +1,73 @@
+<app-navbar></app-navbar>
+<section class="vh-70 gradient-custom">
+    <div class="container py-5 h-70">
+      <div class="row d-flex justify-content-center align-items-center h-70">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card bg-dark text-white" style="border-radius: 1rem;">
+            <div class="card-body p-5">
+              <form>
+                <div class="mb-md-5 mt-md-4 pb-0">
+                  <h2 class="fw-bold mb-2 text-uppercase text-center">Nouveau Compte Bancaire</h2>
+                  <p class="text-white-50 mb-5 text-center">Veuillez entrer les détails du nouveau compte bancaire!</p>
+                  
+                  <div class="row">
+                    <div class="col-md-6 mb-4">
+                      <div class="form-outline form-white">
+                        <input type="text" formControlName="accountHolderName" class="form-control form-control-lg" placeholder="Nom du titulaire du compte" />
+                        <div class="text-danger">
+                          Ce champ est requis
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                      <div class="form-outline form-white">
+                        <input type="text" formControlName="accountNumber" class="form-control form-control-lg" placeholder="Numéro de compte" />
+                        <div class="text-danger">
+                          Ce champ est requis et doit contenir uniquement des chiffres
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col-md-6 mb-4">
+                      <div class="form-outline form-white">
+                        <input type="text" formControlName="bankName" class="form-control form-control-lg" placeholder="Nom de la banque" />
+                        <div class="text-danger">
+                          Ce champ est requis
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                      <div class="form-outline form-white">
+                        <input type="text" formControlName="branchName" class="form-control form-control-lg" placeholder="Nom de la succursale" />
+                        <div class="text-danger">
+                          Ce champ est requis
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col-md-12 mb-4">
+                      <div class="form-outline form-white">
+                        <input type="text" formControlName="ifscCode" class="form-control form-control-lg" placeholder="Code IFSC" />
+                        <div class="text-danger">
+                          Ce champ est requis et doit contenir un code IFSC valide
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div class="text-center">
+                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Créer</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+  
