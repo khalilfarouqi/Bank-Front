@@ -11,16 +11,18 @@
                   <p class="text-white-50 mb-5 text-center">Entrez les détails du virement pour le client.</p>
                   
                   <div class="form-outline form-white mb-4">
-                    <input type="text" formControlName="clientName" class="form-control form-control-lg" placeholder="Nom du Client" />
-                  </div>
-                  <div class="form-outline form-white mb-4">
-                    <input type="number" formControlName="clientAccountNumber" class="form-control form-control-lg" placeholder="Numéro de Compte du Client" />
+                    <select id="accountSelector" class="form-control mb-4">
+                      <option>RIB account.accountNumber</option>
+                    </select>
                   </div>
                   <div class="form-outline form-white mb-4">
                     <input type="number" formControlName="amount" class="form-control form-control-lg" placeholder="Montant" />
                   </div>
                   <div class="form-outline form-white mb-4">
-                    <textarea formControlName="transferDetails" class="form-control form-control-lg" placeholder="Détails du Virement" rows="3"></textarea>
+                    <input type="number" formControlName="clientAccountNumber" class="form-control form-control-lg" placeholder="RIB de destinataire" />
+                  </div>
+                  <div class="form-outline form-white mb-4">
+                    <input type="text" formControlName="clientAccountNumber" class="form-control form-control-lg" placeholder="Motif" />
                   </div>
   
                   <div class="text-center">

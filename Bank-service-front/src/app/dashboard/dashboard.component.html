@@ -1,25 +1,44 @@
 <app-navbar></app-navbar>
-<div class="container mt-4">
-    <h2>Tableau de Bord du Client</h2>
-    <div class="row">
-      <div class="col-md-6">
-        <h3>Solde Actuel</h3>
-        <p class="dashboard-box">$3,000</p>
-      </div>
-      <div class="col-md-6">
-        <h3>Dernières Transactions</h3>
-        <ul>
-          <li>Achat chez Amazon: $50</li>
-          <li>Virement reçu: $200</li>
-          <li>Paiement de loyer: $500</li>
-        </ul>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <h3>Notifications Récentes</h3>
-        <p>Aucune notification récente.</p>
-      </div>
-    </div>
+<div class="container">
+  <h2 class="mt-4 mb-3">Tableau de Bord Client</h2>
+  <div>
+    <label for="accountSelector">Choisir un compte :</label>
+    <select id="accountSelector" class="form-control mb-4">
+      <option>account.accountNumber</option>
+    </select>
+  </div>
+
+  <div>
+    <h3>Informations du Compte</h3>
+    <p>Numéro du RB: selectedAccount.accountNumber</p>
+    <p>Solde du compte: selectedAccount.balance | currency</p>
+  </div>
+
+  <div class="mt-4">
+    <h4>Dernières Opérations</h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Intitulé</th>
+          <th>Type</th>
+          <th>Date</th>
+          <th>Montant</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>transaction.title</td>
+          <td>transaction.type</td>
+          <td>transaction.date | date: 'shortDate'</td>
+          <td>transaction.amount | currency</td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-primary">Plus d'opérations</button>
+  </div>
+
+  <div class="mt-4">
+    <button class="btn btn-success">Nouveau virement</button>
+  </div>
 </div>
-  
+
