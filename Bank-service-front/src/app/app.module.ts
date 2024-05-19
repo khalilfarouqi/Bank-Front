@@ -12,6 +12,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NewPaymentComponent } from './new-payment/new-payment.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { HomeComponent } from './home/home.component';
+import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
+import { ApolloModule } from 'apollo-angular';
+import { GraphqlModule } from './graphql/graphql.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { HomeComponent } from './home/home.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ApolloModule,
+    HttpClientModule,
+    GraphqlModule
   ],
   providers: [
     provideClientHydration()

@@ -12,7 +12,7 @@
                   
                   <div class="form-outline form-white mb-4">
                     <select id="accountSelector" class="form-control mb-4">
-                      <option>RIB account.accountNumber</option>
+                      <option *ngFor="let customer of customers">{{ customer.identityRef }}</option>
                     </select>
                   </div>
                   <div class="form-outline form-white mb-4">
