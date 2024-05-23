@@ -16,6 +16,7 @@ import { HomeComponent } from './home/home.component';
 import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { ApolloModule } from 'apollo-angular';
 import { GraphqlModule } from './graphql/graphql.module';
+import { ExceptionComponent } from './exception/exception.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { GraphqlModule } from './graphql/graphql.module';
     DashboardComponent,
     NewPaymentComponent,
     ChangePasswordComponent,
-    HomeComponent
+    HomeComponent,
+    ExceptionComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +39,7 @@ import { GraphqlModule } from './graphql/graphql.module';
     HttpClientModule,
     GraphqlModule,
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideClientHydration()
