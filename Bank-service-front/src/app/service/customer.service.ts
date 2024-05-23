@@ -4,6 +4,19 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CustomerDto, QueryResult } from '../models/CustomerDto';
 
+const CREATE_CUSTOMER = gql`
+  mutation createCustomer($dto: AddCustomerRequest!) {
+    createCustomer(dto: $dto) {
+      firstName
+      lastName
+      email
+      identityRef
+      address
+      dateOfBirth
+    }
+  }
+`;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -26,5 +39,14 @@ export class CustomerService {
     }).valueChanges.pipe(
       map(result => result.data.customers)
     );
+  }
+
+  createCustomer(dto: any) {
+    return this.apollo.mutate({
+      mutation: CREATE_CUSTOMER,
+      variables: {
+        dto,
+      },
+    });
   }
 }
