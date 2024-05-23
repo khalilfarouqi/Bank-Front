@@ -17,6 +17,7 @@ import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/
 import { ApolloModule } from 'apollo-angular';
 import { GraphqlModule } from './graphql/graphql.module';
 import { ExceptionComponent } from './exception/exception.component';
+import { RibFormatDirective } from './rib-format.directive';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ExceptionComponent } from './exception/exception.component';
     NewPaymentComponent,
     ChangePasswordComponent,
     HomeComponent,
-    ExceptionComponent
+    ExceptionComponent,
+    RibFormatDirective
   ],
   imports: [
     BrowserModule,
