@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { BankAccountService } from '../service/bank-account.service';
 import { NgForm } from '@angular/forms';
-import { AddBankAccountResponse } from '../models/AddBankAccountResponse';
 
 @Component({
   selector: 'app-new-bank-account',
@@ -21,7 +20,7 @@ export class NewBankAccountComponent {
     this.errorMessage = null;
   
     this.bankAccountService.addBankAccount(formData).subscribe({
-      next: (response: any) => { // Type 'any' utilisé ici, pas idéal mais fonctionnel
+      next: (response: any) => {
         console.log('bank account created', response);
         const successMessage = response.data.addBankAccount.meessage;
         console.log("successMessage  -->  " + successMessage);

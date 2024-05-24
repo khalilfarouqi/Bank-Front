@@ -1,6 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 
+const CREATE_TRANSACTION = gql`
+  mutation addWirerTransfer($dto: AddWirerTransferRequest!) {
+    addWirerTransfer(dto: $dto) {
+      message
+    }
+  }
+`;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -33,6 +41,15 @@ export class TransactionService {
       variables: {
         id:id
       }
+    });
+  }
+
+  createTransaction(dto: any) {
+    return this.apollo.mutate({
+      mutation: CREATE_TRANSACTION,
+      variables: {
+        dto,
+      },
     });
   }
 }
