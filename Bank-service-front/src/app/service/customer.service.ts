@@ -17,6 +17,21 @@ const CREATE_CUSTOMER = gql`
   }
 `;
 
+const SIGNUP_CUSTOMER = gql`
+  mutation signUpCustomer($dto: AddCustomerRequest!) {
+    signUpCustomer(dto: $dto) {
+      address
+      dateOfBirth
+      email
+      firstName
+      identityRef
+      lastName
+      password
+      username
+    }
+  }
+`;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -44,6 +59,15 @@ export class CustomerService {
   createCustomer(dto: any) {
     return this.apollo.mutate({
       mutation: CREATE_CUSTOMER,
+      variables: {
+        dto,
+      },
+    });
+  }
+
+  signUpCustomer(dto: any) {
+    return this.apollo.mutate({
+      mutation: SIGNUP_CUSTOMER,
       variables: {
         dto,
       },
