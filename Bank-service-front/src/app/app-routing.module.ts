@@ -8,6 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NewPaymentComponent } from './new-payment/new-payment.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { HomeComponent } from './home/home.component';
+import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent},
@@ -17,7 +18,9 @@ const routes: Routes = [
   { path: "dashboard", component: DashboardComponent},
   { path: "newPayment", component: NewPaymentComponent},
   { path: "changePassword", component: ChangePasswordComponent},
-  { path: "home", component: HomeComponent}
+  { path: "home", component: HomeComponent},
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
