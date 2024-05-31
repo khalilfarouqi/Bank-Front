@@ -26,15 +26,18 @@ export class LoginComponent {
         this.isLoading = false;
       },
       error: err => {
-        console.error('Login error', err);
+        this.isLoading = false;
         this.handleError(err);
+        console.error('Login error', err);
+      },
+      complete: () => {
         this.isLoading = false;
       }
     });
   }
 
   handleError(error: any) {
-    this.errorMessage = error.graphQLErrors[0]?.message || 'An unexpected error occurred';
+    this.errorMessage = error.message || 'Username or password not fond';
   }
 
 }

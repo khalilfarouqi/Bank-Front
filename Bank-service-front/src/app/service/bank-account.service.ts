@@ -35,6 +35,25 @@ export class BankAccountService {
     });
   }
 
+  getBankAccountByUsername(username: string) {
+    return this.apollo.query<any>({
+      query: gql`
+        query GetBankAccountByUsername($username: String!) {
+          bankAccountByUsername(username: $username) {
+            id
+            rib
+            amount
+            createdAt
+            accountStatus
+          }
+        }
+      `,
+      variables: {
+        username:username
+      }
+    });
+  }
+
   addBankAccount(dto: any) {
     return this.apollo.mutate({
       mutation: ADD_BANK_ACCOUNT,
