@@ -19,8 +19,8 @@ const routes: Routes = [
   { path: "newPayment", component: NewPaymentComponent},
   { path: "changePassword", component: ChangePasswordComponent},
   { path: "home", component: HomeComponent},
-  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: '**', redirectTo: '' }
+  { path: '', component: HomeComponent },
+  { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 
 @NgModule({
