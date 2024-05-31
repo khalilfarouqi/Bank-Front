@@ -38,19 +38,23 @@ export class NewPaymentComponent implements OnInit {
     if (!this.authService.isAuthenticated()) {
       this.router.navigate(['/Login']);
     } else {
-      this.bankAccountService.getBankAccountById('1').subscribe({
-        next: (result) => {
-          this.bankAccounts = result.data.bankAccountById;
-          this.cd.detectChanges();
-        },
-        error: (error) => {
-          console.error('Error loading Bank account:', error);
-        }
-      });
-  
-      this.paymentForm.get('ribFrom')?.valueChanges.subscribe(value => {
-        console.log('RIB has changed:', value);
-      });
+      if (this.authService.getRole() == "CLIENT"){
+        this.bankAccountService.getBankAccountByUsername(this.authService.getUsername()).subscribe({
+          next: (result) => {
+            this.bankAccounts = result.data.bankAccountByUsername;
+            this.cd.detectChanges();
+          },
+          error: (error) => {
+            console.error('Error loading Bank account:', error);
+          }
+        });
+    
+        this.paymentForm.get('ribFrom')?.valueChanges.subscribe(value => {
+          console.log('RIB has changed:', value);
+        });
+      } else {
+        this.router.navigate(['/home']);
+      }
     }
   }
 

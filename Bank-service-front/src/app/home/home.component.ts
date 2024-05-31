@@ -17,6 +17,9 @@ export class HomeComponent implements OnInit{
     if (!this.authService.isAuthenticated()) {
       this.router.navigate(['/Login']);
     } else {
+      if (this.authService.getRole() == "CLIENT") {
+        this.router.navigate(['/dashboard']);
+      }
       
     }
   }
