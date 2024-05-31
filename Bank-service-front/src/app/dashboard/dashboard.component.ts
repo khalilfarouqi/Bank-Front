@@ -23,17 +23,21 @@ export class DashboardComponent implements OnInit {
     private router: Router) {}
 
   ngOnInit() {
-    this.bankAccountService.getBankAccountByUsername(this.authService.getUsername()).subscribe({
-      next: (result) => {
-        this.bankAccounts = result.data.bankAccountByUsername;
-        this.selectedRIB = this.bankAccounts[0].rib
-        this.onChangeSelectedAccount()
-      },
-      error: (error) => {
-        console.log("erreur  --->  " + error.message)
-        console.error('There was an error sending the query', error);
-      },
-    });
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/Login']);
+    } else {
+      this.bankAccountService.getBankAccountByUsername(this.authService.getUsername()).subscribe({
+        next: (result) => {
+          this.bankAccounts = result.data.bankAccountByUsername;
+          this.selectedRIB = this.bankAccounts[0].rib
+          this.onChangeSelectedAccount()
+        },
+        error: (error) => {
+          console.log("erreur  --->  " + error.message)
+          console.error('There was an error sending the query', error);
+        },
+      });
+    }
   }
 
   onChangeSelectedAccount() {

@@ -2,19 +2,30 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { CustomerService } from '../service/customer.service';
 import { CustomerDto } from '../models/CustomerDto';
+import { AuthService } from '../service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-new-client',
   templateUrl: './add-new-client.component.html',
   styleUrl: './add-new-client.component.css'
 })
-export class AddNewClientComponent {
+export class AddNewClientComponent implements OnInit {
 
   @ViewChild('clientForm') clientForm!: NgForm;
   errorMessage: any;
   isLoading = false;
 
-  constructor(private customerService: CustomerService) {}
+  constructor(
+    private customerService: CustomerService,
+    private authService: AuthService,
+    private router: Router) {}
+
+  ngOnInit(): void {
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/Login']);
+    }
+  }
 
   addCustomer(formData: any) {
     this.isLoading = true;
