@@ -3,6 +3,9 @@ import { UserService } from '../service/user.service';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
+import * as CryptoJS from 'crypto-js';
+import { CustomerService } from '../service/customer.service';
+
 
 @Component({
   selector: 'app-change-password',
@@ -17,6 +20,7 @@ export class ChangePasswordComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private customerService: CustomerService,
     private authService: AuthService,
     private router: Router) {}
 
@@ -30,9 +34,7 @@ export class ChangePasswordComponent implements OnInit {
     this.isLoading = true;
     this.errorMessage = null;
 
-    console.log(formData);
-
-    formData.username = "khalil.farouqaa";
+    formData.username = this.authService.getUsername();
 
     this.userService.updatePassword(formData).subscribe({
       next: (response) => {
