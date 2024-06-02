@@ -1,24 +1,74 @@
 <app-navbar></app-navbar>
-<div class="signup-form">
-    <h2>SIGN UP</h2>
-    <p>Please enter your details to create an account!</p>
-    <div class="role-toggle">
-      <input type="radio" id="customer" name="role" checked>
-      <label for="customer">Customer</label>
-      <input type="radio" id="admin" name="role">
-      <label for="admin">Admin</label>
-      <div class="slider"></div>
-    </div>
-    <input type="text" placeholder="Username">
-    <input type="email" placeholder="Email">
-    <input type="password" placeholder="Password">
-    <input type="password" placeholder="Confirm Password">
-    <button type="submit">Sign Up</button>
-    <div class="social-media">
-      <i class="fab fa-facebook-f"></i>
-      <i class="fab fa-twitter"></i>
-      <i class="fab fa-google"></i>
-    </div>
-    <a href="/login">Already have an account? Login</a>
+<div class="container">
+  <h2 class="mt-4 mb-3">Tableau de Bord Agent Guichet</h2>
+  <div class="mt-4">
+    <h4>Informations des Comptes</h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Customer</th>
+          <th>Rib</th>
+          <th>Status</th>
+          <th>Created At</th>
+          <th>Montant</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let bankAccount of bankAccounts">
+          <td>{{ bankAccount.customer.firstName }} {{ bankAccount.customer.lastName }}</td>
+          <td>{{ bankAccount.rib }}</td>
+          <td>{{ bankAccount.accountStatus }}</td>
+          <td>{{ bankAccount.createdAt | date: 'shortDate' }}</td>
+          <td [ngClass]="{ 'amount-positive': bankAccount.amount >= 0, 'amount-negative': bankAccount.amount < 0 }">{{ formatCurrency(bankAccount.amount) }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  
+
+  <div class="mt-4">
+    <h4>Dernières Opérations</h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Intitulé</th>
+          <th>Type</th>
+          <th>Date</th>
+          <th>Montant</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let transaction of transactions">
+          <td [ngClass]="{ 'amount-positive': transaction.transactionType === 'DEBIT', 'amount-negative': transaction.transactionType === 'CREDIT' }">Virement de {{ transaction.users.firstName }} {{ transaction.users.lastName }}</td>
+          <td [ngClass]="{ 'amount-positive': transaction.transactionType === 'DEBIT', 'amount-negative': transaction.transactionType === 'CREDIT' }">{{ transaction.transactionType }}</td>
+          <td [ngClass]="{ 'amount-positive': transaction.transactionType === 'DEBIT', 'amount-negative': transaction.transactionType === 'CREDIT' }">{{ transaction.createdAt | date: 'shortDate' }}</td>
+          <td [ngClass]="{ 'amount-positive': transaction.transactionType === 'DEBIT', 'amount-negative': transaction.transactionType === 'CREDIT' }">{{ formatCurrency(transaction.amount) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-4">
+    <h4>Dernières Customers</h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>IdentityRef</th>
+          <th>Email</th>
+          <th>DateOfBirth</th>
+          <th>Address</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let customer of customers">
+          <td>{{ customer.firstName }} {{ customer.lastName }}</td>
+          <td>{{ customer.identityRef }}</td>
+          <td>{{ customer.email }}</td>
+          <td>{{ customer.dateOfBirth | date: 'shortDate' }}</td>
+          <td>{{ customer.address }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

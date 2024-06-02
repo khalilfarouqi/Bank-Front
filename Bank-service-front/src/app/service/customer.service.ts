@@ -44,10 +44,13 @@ export class CustomerService {
       query: gql`
         query {
           customers {
-            username
-            identityRef
             firstName
             lastName
+            identityRef
+            email
+            dateOfBirth
+            address
+            username
           }
         }
       `

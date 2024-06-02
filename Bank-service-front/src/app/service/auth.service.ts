@@ -46,7 +46,7 @@ export class AuthService {
       console.error('localStorage is not defined');
       return '';
     }
-    console.log("checkExp  ---->   " + this.checkExp())
+    
     if (this.checkExp()) {
       this.logout();
     }

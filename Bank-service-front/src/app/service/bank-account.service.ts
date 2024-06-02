@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
+import { Observable, map } from 'rxjs';
+import { BankAccountDto } from '../models/BankAccountDto';
 
 const ADD_BANK_ACCOUNT = gql`
   mutation addBankAccount($dto: AddBankAccountRequest!) {
@@ -15,6 +17,28 @@ const ADD_BANK_ACCOUNT = gql`
 export class BankAccountService {
 
   constructor(private apollo: Apollo) { }
+
+  getBankAccounts(): Observable<BankAccountDto[]> {
+    return this.apollo.watchQuery<{ bankAccounts: BankAccountDto[] }>({
+      query: gql`
+        query {
+          bankAccounts {
+            accountStatus
+            amount
+            createdAt
+            rib
+            customer {
+              identityRef
+              lastName
+              firstName
+            }
+          }
+        }
+      `
+    }).valueChanges.pipe(
+      map(result => result.data.bankAccounts)
+    );
+  }
 
   getBankAccountById(id: string) {
     return this.apollo.query<any>({

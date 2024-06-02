@@ -1,84 +1,34 @@
-.signup-form {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 10px;
-    padding: 20px;
-    width: 300px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    font-family: 'Arial', sans-serif;
-    color: #fff;
+.gradient-custom {
+  /* fallback for old browsers */
+  background: #6a11cb;
+  
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+  
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+  }
+  .dashboard-box {
+      background-color: #f8f9fa;
+      border: 1px solid #dee2e6;
+      padding: 20px;
+      border-radius: 5px;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+    
+    .table {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .amount-positive {
+      background-color: rgb(120, 255, 120);
   }
   
-  .role-toggle {
-    position: relative;
-    display: inline-block;
-    width: 200px;
-    height: 34px;
-    margin: 10px;
-    background: linear-gradient(to right, #007bff, #00ffcc);
-    border-radius: 20px;
-    cursor: pointer;
+  .amount-negative {
+      background-color: rgb(255, 120, 120);
   }
-  
-  .role-toggle input {
-    display: none;
-  }
-  
-  .role-toggle label {
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 98px;
-    height: 30px;
-    background: #fff;
-    border-radius: 18px;
-    transition: all 0.4s;
-  }
-  
-  .role-toggle input:checked + label {
-    left: 100px;
-  }
-  
-  input[type="text"],
-  input[type="email"],
-  input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 5px;
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
-  }
-  
-  button {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background: linear-gradient(to right, #007bff, #00ffcc);
-    color: #fff;
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-  
-  button:hover {
-    background: linear-gradient(to right, #00ffcc, #007bff);
-  }
-  
-  .social-media i {
-    margin: 10px;
-    cursor: pointer;
-    color: #fff;
-  }
-  
-  a {
-    color: #00ffcc;
-    text-decoration: none;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
-  
