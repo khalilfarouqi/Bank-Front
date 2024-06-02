@@ -42,9 +42,13 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    if (typeof localStorage === 'undefined' || localStorage === null) {
+    if (typeof localStorage == 'undefined' || localStorage == null) {
       console.error('localStorage is not defined');
       return '';
+    }
+    console.log("checkExp  ---->   " + this.checkExp())
+    if (this.checkExp()) {
+      this.logout();
     }
     return localStorage.getItem('token');
   }
@@ -68,6 +72,23 @@ export class AuthService {
     
     return '';
       
+  }
+
+  public checkExp(): boolean {
+    if (typeof localStorage === 'undefined' || localStorage === null) {
+      console.error('localStorage is not defined');
+      return false;
+    }
+
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      const decodedToken = this.jwtHelper.decodeToken(token).exp;
+      if (decodedToken < Math.floor(Date.now() / 1000)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   public getUsername(): string {
