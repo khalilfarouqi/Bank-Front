@@ -1,7 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { CustomerService } from '../service/customer.service';
-import { CustomerDto } from '../models/CustomerDto';
 import { BankAccountService } from '../service/bank-account.service';
 import { BankAccountDto } from '../models/BankAccountDto';
 import { TransactionService } from '../service/transaction.service';

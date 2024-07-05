@@ -3,7 +3,6 @@ import { UserService } from '../service/user.service';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
-import * as CryptoJS from 'crypto-js';
 import { CustomerService } from '../service/customer.service';
 
 

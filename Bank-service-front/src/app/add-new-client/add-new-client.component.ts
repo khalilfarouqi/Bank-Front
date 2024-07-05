@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { CustomerService } from '../service/customer.service';
-import { CustomerDto } from '../models/CustomerDto';
 import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
 
