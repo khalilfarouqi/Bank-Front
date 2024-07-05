@@ -5,7 +5,7 @@
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
           <div class="card bg-dark text-white" style="border-radius: 1rem;">
             <div class="card-body p-5">
-              <form>
+              <form #accountForm="ngForm" (ngSubmit)="addBankAccount(accountForm.value)">
                 <div class="mb-md-5 mt-md-4 pb-0">
                   <h2 class="fw-bold mb-2 text-uppercase text-center">Nouveau Compte Bancaire</h2>
                   <p class="text-white-50 mb-5 text-center">Veuillez entrer les détails du nouveau compte bancaire!</p>
@@ -13,8 +13,8 @@
                   <div class="row">
                     <div class="col-md-12 mb-4">
                       <div class="form-outline form-white">
-                        <input type="number" formControlName="ifscCode" class="form-control form-control-lg" placeholder="RIB" />
-                        <div class="text-danger">
+                        <input type="text" name="rib" ngModel required class="form-control form-control-lg" placeholder="RIB" appRibFormat />
+                        <div class="text-danger" *ngIf="accountForm.controls['rib']?.errors?.['required'] && accountForm.controls['rib']?.touched">
                           Ce champ est requis
                         </div>
                       </div>
@@ -24,8 +24,8 @@
                   <div class="row">
                     <div class="col-md-12 mb-4">
                       <div class="form-outline form-white">
-                        <input type="text" formControlName="ifscCode" class="form-control form-control-lg" placeholder="Identité du client" />
-                        <div class="text-danger">
+                        <input type="text" name="customerIdentityRef" ngModel required class="form-control form-control-lg" placeholder="Identité du client" />
+                        <div class="text-danger" *ngIf="!accountForm.controls['customerIdentityRef']?.valid && accountForm.controls['customerIdentityRef']?.touched">
                           Ce champ est requis
                         </div>
                       </div>
@@ -36,7 +36,16 @@
                     <button class="btn btn-outline-light btn-lg px-5" type="submit">Créer</button>
                   </div>
                 </div>
+                <!-- Form content goes here -->
+                <div class="text-center" *ngIf="isLoading">
+                  <!-- Placeholder for loading animation -->
+                  <div class="spinner-border text-light" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+                <!-- Remaining template code -->
               </form>
+              <app-exception *ngIf="errorMessage" [message]="errorMessage"></app-exception>
             </div>
           </div>
         </div>

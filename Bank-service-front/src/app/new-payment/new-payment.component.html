@@ -1,39 +1,56 @@
 <app-navbar></app-navbar>
 <section class="vh-100 gradient-custom">
-    <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-          <div class="card bg-dark text-white" style="border-radius: 1rem;">
-            <div class="card-body p-5">
-              <form>
-                <div class="mb-md-4 mt-md-4 pb-0">
-                  <h2 class="fw-bold mb-2 text-uppercase text-center">Nouveau Virement</h2>
-                  <p class="text-white-50 mb-5 text-center">Entrez les détails du virement pour le client.</p>
-                  
-                  <div class="form-outline form-white mb-4">
-                    <select id="accountSelector" class="form-control mb-4">
-                      <option>RIB account.accountNumber</option>
-                    </select>
-                  </div>
-                  <div class="form-outline form-white mb-4">
-                    <input type="number" formControlName="amount" class="form-control form-control-lg" placeholder="Montant" />
-                  </div>
-                  <div class="form-outline form-white mb-4">
-                    <input type="number" formControlName="clientAccountNumber" class="form-control form-control-lg" placeholder="RIB de destinataire" />
-                  </div>
-                  <div class="form-outline form-white mb-4">
-                    <input type="text" formControlName="clientAccountNumber" class="form-control form-control-lg" placeholder="Motif" />
-                  </div>
-  
-                  <div class="text-center">
-                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Effectuer le Virement</button>
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+          <div class="card-body p-5">
+            <form #accountForm="ngForm" [formGroup]="paymentForm" (ngSubmit)="onSubmit()" (ngSubmit)="newPayment(accountForm.value)">
+              <div class="mb-md-4 mt-md-4 pb-0">
+                <h2 class="fw-bold mb-2 text-uppercase text-center">Nouveau Virement</h2>
+                <p class="text-white-50 mb-5 text-center">Entrez les détails du virement pour le client.</p>
+
+                <div class="form-outline form-white mb-4">
+                  <select id="accountSelector" class="form-control mb-4" formControlName="ribFrom">
+                    <option disabled value="">Choisissez un bank account</option>
+                    <option *ngFor="let bankAccount of bankAccounts" [value]="bankAccount.rib">{{ bankAccount.rib }}</option>
+                  </select>
+                </div>
+                <div class="form-outline form-white mb-4">
+                  <input type="number" formControlName="amount" name="amount" class="form-control form-control-lg" placeholder="Montant" required />
+                  <div class="text-danger" *ngIf="paymentForm.get('amount') != null && paymentForm.get('amount')?.touched && paymentForm.get('amount')?.errors" class="text-danger">
+                    Ce champ est requis
                   </div>
                 </div>
-              </form>
-            </div>
+                <div class="form-outline form-white mb-4">
+                  <input type="text" formControlName="ribTo" name="ribTo" required class="form-control form-control-lg" placeholder="RIB de destinataire" appRibFormat />
+                  <div class="text-danger" *ngIf="paymentForm.get('ribTo')?.touched && paymentForm.get('ribTo')?.errors" class="text-danger">
+                    Ce champ est requis
+                  </div>
+                </div>
+                <div class="form-outline form-white mb-4">
+                  <input type="text" class="form-control form-control-lg" placeholder="Motif" />
+                </div>
+
+                <div class="text-center">
+                  <button class="btn btn-outline-light btn-lg px-5" type="submit">Effectuer le Virement</button>
+                </div>
+              </div>
+
+              <!-- Form content goes here -->
+              <div class="text-center" *ngIf="isLoading">
+                <!-- Placeholder for loading animation -->
+                <div class="spinner-border text-light" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+              <!-- Remaining template code -->
+
+            </form>
+            <app-exception *ngIf="errorMessage" [message]="errorMessage"></app-exception>
           </div>
         </div>
       </div>
     </div>
-</section>  
-  
+  </div>
+</section>

@@ -5,7 +5,7 @@
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
           <div class="card bg-dark text-white" style="border-radius: 1rem;">
             <div class="card-body p-5">
-              <form>
+              <form #clientForm="ngForm" (ngSubmit)="addCustomer(clientForm.value)">
                 <div class="mb-md-5 mt-md-4 pb-0">
                   <h2 class="fw-bold mb-2 text-uppercase text-center">Nouveau Client</h2>
                   <p class="text-white-50 mb-5 text-center">Veuillez entrer les détails du nouveau client!</p>
@@ -13,16 +13,16 @@
                   <div class="row">
                     <div class="col-md-6 mb-4">
                       <div class="form-outline form-white">
-                        <input type="text" formControlName="firstName" class="form-control form-control-lg" placeholder="Prénom" />
-                        <div class="text-danger">
+                        <input type="text" name="firstName" ngModel required class="form-control form-control-lg" placeholder="Prénom" />
+                        <div class="text-danger" *ngIf="!clientForm.controls['firstName']?.valid && clientForm.controls['firstName']?.touched">
                           Ce champ est requis
                         </div>
                       </div>
                     </div>
                     <div class="col-md-6 mb-4">
                       <div class="form-outline form-white">
-                        <input type="text" formControlName="lastName" class="form-control form-control-lg" placeholder="Nom de famille" />
-                        <div class="text-danger">
+                        <input type="text" name="lastName" ngModel required class="form-control form-control-lg" placeholder="Nom de famille" />
+                        <div class="text-danger" *ngIf="!clientForm.controls['lastName']?.valid && clientForm.controls['lastName']?.touched">
                           Ce champ est requis
                         </div>
                       </div>
@@ -32,16 +32,16 @@
                   <div class="row">
                     <div class="col-md-6 mb-4">
                       <div class="form-outline form-white">
-                        <input type="email" formControlName="email" class="form-control form-control-lg" placeholder="Email" />
-                        <div class="text-danger">
+                        <input type="email" name="email" ngModel required class="form-control form-control-lg" placeholder="Email" />
+                        <div class="text-danger" *ngIf="!clientForm.controls['email']?.valid && clientForm.controls['email']?.touched">
                           Entrez une adresse email valide
                         </div>
                       </div>
                     </div>
                     <div class="col-md-6 mb-4">
                       <div class="form-outline form-white">
-                        <input type="text" formControlName="phoneNumber" class="form-control form-control-lg" placeholder="Numéro d’identité" />
-                        <div class="text-danger">
+                        <input type="text" name="identityRef" ngModel required class="form-control form-control-lg" placeholder="Numéro d’identité" />
+                        <div class="text-danger" *ngIf="!clientForm.controls['identityRef']?.valid && clientForm.controls['identityRef']?.touched">
                           Ce champ est requis
                         </div>
                       </div>
@@ -51,8 +51,8 @@
                   <div class="row">
                     <div class="col-md-12 mb-4">
                       <div class="form-outline form-white">
-                        <input type="text" formControlName="address" class="form-control form-control-lg" placeholder="Adresse" />
-                        <div class="text-danger">
+                        <input type="text" name="address" ngModel required class="form-control form-control-lg" placeholder="Adresse" />
+                        <div class="text-danger" *ngIf="!clientForm.controls['address']?.valid && clientForm.controls['address']?.touched">
                           Ce champ est requis
                         </div>
                       </div>
@@ -62,8 +62,8 @@
                   <div class="row">
                     <div class="col-md-12 mb-4">
                       <div class="form-outline form-white">
-                        <input type="date" formControlName="dateOfBirth" class="form-control form-control-lg" placeholder="Date de naissance" />
-                        <div class="text-danger">
+                        <input type="date" name="dateOfBirth" ngModel required class="form-control form-control-lg" placeholder="Date de naissance" />
+                        <div class="text-danger" *ngIf="!clientForm.controls['dateOfBirth']?.valid && clientForm.controls['dateOfBirth']?.touched">
                           Ce champ est requis
                         </div>
                       </div>
@@ -74,7 +74,17 @@
                     <button class="btn btn-outline-light btn-lg px-5" type="submit">Ajouter</button>
                   </div>
                 </div>
+
+                <!-- Form content goes here -->
+                <div class="text-center" *ngIf="isLoading">
+                  <!-- Placeholder for loading animation -->
+                  <div class="spinner-border text-light" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+                <!-- Remaining template code -->
               </form>
+              <app-exception *ngIf="errorMessage" [message]="errorMessage"></app-exception>
             </div>
           </div>
         </div>

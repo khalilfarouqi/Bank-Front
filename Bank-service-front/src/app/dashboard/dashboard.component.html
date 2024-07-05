@@ -3,15 +3,15 @@
   <h2 class="mt-4 mb-3">Tableau de Bord Client</h2>
   <div>
     <label for="accountSelector">Choisir un compte :</label>
-    <select id="accountSelector" class="form-control mb-4">
-      <option>account.accountNumber</option>
+    <select id="accountSelector" class="form-control mb-4" [(ngModel)]="selectedRIB" (change)="onChangeSelectedAccount()">
+      <option *ngFor="let bankAccount of bankAccounts" [value]="bankAccount.rib">{{ bankAccount.rib }}</option>
     </select>
   </div>
 
   <div>
     <h3>Informations du Compte</h3>
-    <p>Numéro du RB: selectedAccount.accountNumber</p>
-    <p>Solde du compte: selectedAccount.balance | currency</p>
+    <p>Numéro du RB: {{ selectedAccount?.rib }}</p>
+    <p>Solde du compte: {{ selectedAccount ? formatCurrency(selectedAccount.amount) : '0 MAD' }}</p>
   </div>
 
   <div class="mt-4">
@@ -26,11 +26,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>transaction.title</td>
-          <td>transaction.type</td>
-          <td>transaction.date | date: 'shortDate'</td>
-          <td>transaction.amount | currency</td>
+        <tr *ngFor="let transaction of transactions">
+          <td>Virement en votre faveur de {{ transaction.users.firstName }} {{ transaction.users.lastName }}</td>
+          <td>{{ transaction.transactionType }}</td>
+          <td>{{ transaction.createdAt | date: 'shortDate' }}</td>
+          <td>{{ formatCurrency(transaction.amount) }}</td>
         </tr>
       </tbody>
     </table>
@@ -38,7 +38,7 @@
   </div>
 
   <div class="mt-4">
-    <button class="btn btn-success">Nouveau virement</button>
+    <button class="btn btn-success" (click)="navigateToNewPayment()">Nouveau virement</button>
   </div>
 </div>
 

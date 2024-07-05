@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +13,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NewPaymentComponent } from './new-payment/new-payment.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { HomeComponent } from './home/home.component';
+import { HTTP_INTERCEPTORS, HttpClientModule, HttpRequest, provideHttpClient, withFetch } from '@angular/common/http';
+import { ApolloModule } from 'apollo-angular';
+import { GraphqlModule } from './graphql/graphql.module';
+import { ExceptionComponent } from './exception/exception.component';
+import { RibFormatDirective } from './rib-format.directive';
+import { JwtModule } from '@auth0/angular-jwt';
+import { JwtInterceptor } from './jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -24,15 +32,34 @@ import { HomeComponent } from './home/home.component';
     DashboardComponent,
     NewPaymentComponent,
     ChangePasswordComponent,
-    HomeComponent
+    HomeComponent,
+    ExceptionComponent,
+    RibFormatDirective
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ApolloModule,
+    HttpClientModule,
+    GraphqlModule,
+    FormsModule,
+    ReactiveFormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ['http://localhost:4200/'],
+        disallowedRoutes: ['http://localhost:4200//auth/']
+      }
+    })
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }  
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+function tokenGetter(request?: HttpRequest<any> | undefined): string | Promise<string | null> | null {
+  throw new Error('Function not implemented.');
+}
+
