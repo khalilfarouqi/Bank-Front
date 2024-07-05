@@ -9,6 +9,16 @@ const UPDATE_PASSWORD = gql`
   }
 `;
 
+const SIGNUP_USER = gql`
+  mutation signUpUser($dto: AddUserRequest!) {
+    signUpUser(dto: $dto) {
+      message
+      password
+      userName
+    }
+  }
+`;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,6 +29,15 @@ export class UserService {
   updatePassword(dto: any) {
     return this.apollo.mutate({
       mutation: UPDATE_PASSWORD,
+      variables: {
+        dto,
+      },
+    });
+  }
+
+  signUpUser(dto: any) {
+    return this.apollo.mutate({
+      mutation: SIGNUP_USER,
       variables: {
         dto,
       },

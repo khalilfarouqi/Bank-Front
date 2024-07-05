@@ -4,6 +4,7 @@ import { BankAccountDto } from '../models/BankAccountDto';
 import { TransactionDto } from '../models/TransactionDto';
 import { TransactionService } from '../service/transaction.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,17 +19,29 @@ export class DashboardComponent implements OnInit {
   constructor(
     private bankAccountService:BankAccountService, 
     private transactionService:TransactionService,
+    private authService: AuthService,
     private router: Router) {}
 
   ngOnInit() {
-    this.bankAccountService.getBankAccountById('1').subscribe({
-      next: (result) => {
-        this.bankAccounts = result.data.bankAccountById;
-      },
-      error: (error) => {
-        console.error('There was an error sending the query', error);
-      },
-    });
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/Login']);
+    } else {
+      if (this.authService.getRole() == "CLIENT") {
+        this.bankAccountService.getBankAccountByUsername(this.authService.getUsername()).subscribe({
+          next: (result) => {
+            this.bankAccounts = result.data.bankAccountByUsername;
+            this.selectedRIB = this.bankAccounts[0].rib
+            this.onChangeSelectedAccount()
+          },
+          error: (error) => {
+            console.log("erreur  --->  " + error.message)
+            console.error('There was an error sending the query', error);
+          },
+        });
+      } else {
+        this.router.navigate(['/home']);
+      }
+    }
   }
 
   onChangeSelectedAccount() {

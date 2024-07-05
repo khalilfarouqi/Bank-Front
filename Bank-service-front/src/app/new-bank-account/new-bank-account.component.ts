@@ -1,19 +1,34 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BankAccountService } from '../service/bank-account.service';
 import { NgForm } from '@angular/forms';
+import { AuthService } from '../service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-bank-account',
   templateUrl: './new-bank-account.component.html',
   styleUrl: './new-bank-account.component.css'
 })
-export class NewBankAccountComponent {
+export class NewBankAccountComponent implements OnInit {
   
   @ViewChild('accountForm') accountForm!: NgForm;
   errorMessage: any;
   isLoading = false;
 
-  constructor(private bankAccountService:BankAccountService) {}
+  constructor(
+    private bankAccountService:BankAccountService,
+    private authService: AuthService,
+    private router: Router) {}
+
+  ngOnInit(): void {
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/Login']);
+    } else {
+      if (this.authService.getRole() == "CLIENT") {
+        this.router.navigate(['/dashboard']);
+      }
+    }
+  }
 
   addBankAccount(formData: any) {
     this.isLoading = true;

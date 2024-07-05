@@ -1,10 +1,10 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { CustomerService } from '../service/customer.service';
-import { CustomerDto } from '../models/CustomerDto';
 import { BankAccountService } from '../service/bank-account.service';
 import { BankAccountDto } from '../models/BankAccountDto';
 import { TransactionService } from '../service/transaction.service';
+import { AuthService } from '../service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-payment',
@@ -21,6 +21,8 @@ export class NewPaymentComponent implements OnInit {
   constructor(
     private transactionService: TransactionService,
     private bankAccountService: BankAccountService,
+    private authService: AuthService,
+    private router: Router,
     private fb: FormBuilder,
     private cd: ChangeDetectorRef) {
     this.paymentForm = this.fb.group({
@@ -31,20 +33,27 @@ export class NewPaymentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.bankAccountService.getBankAccountById('1').subscribe({
-      next: (result) => {
-        this.bankAccounts = result.data.bankAccountById;
-        this.cd.detectChanges();
-      },
-      error: (error) => {
-        console.error('Error loading Bank account:', error);
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/Login']);
+    } else {
+      if (this.authService.getRole() == "CLIENT"){
+        this.bankAccountService.getBankAccountByUsername(this.authService.getUsername()).subscribe({
+          next: (result) => {
+            this.bankAccounts = result.data.bankAccountByUsername;
+            this.cd.detectChanges();
+          },
+          error: (error) => {
+            console.error('Error loading Bank account:', error);
+          }
+        });
+    
+        this.paymentForm.get('ribFrom')?.valueChanges.subscribe(value => {
+          console.log('RIB has changed:', value);
+        });
+      } else {
+        this.router.navigate(['/home']);
       }
-    });
-
-    this.paymentForm.get('ribFrom')?.valueChanges.subscribe(value => {
-      console.log('RIB has changed:', value);
-      // Additional logic when RIB changes
-    });
+    }
   }
 
   onSubmit() {

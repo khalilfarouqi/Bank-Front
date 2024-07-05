@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
+import { Observable, map } from 'rxjs';
+import { TransactionDto } from '../models/TransactionDto';
 
 const CREATE_TRANSACTION = gql`
   mutation addWirerTransfer($dto: AddWirerTransferRequest!) {
@@ -15,6 +17,35 @@ const CREATE_TRANSACTION = gql`
 export class TransactionService {
 
   constructor(private apollo: Apollo) { }
+
+  getTransactions(): Observable<TransactionDto[]> {
+    return this.apollo.watchQuery<{ transactions: TransactionDto[] }>({
+      query: gql`
+        query {
+          transactions {
+            amount
+            createdAt
+            transactionType
+            bankAccount {
+              rib
+              accountStatus
+              customer {
+                username
+                lastName
+                identityRef
+              }
+            }
+            users {
+              lastName
+              firstName
+            }
+          }
+        }
+      `
+    }).valueChanges.pipe(
+      map(result => result.data.transactions)
+    );
+  }
 
   getTop10TransactionsById(id: string) {
     return this.apollo.query<any>({

@@ -23,7 +23,7 @@
                   </div>
                 </div>
                 <div class="form-outline form-white mb-4">
-                  <input type="text" formControlName="ribTo" name="ribTo" ngModel required class="form-control form-control-lg" placeholder="RIB de destinataire" appRibFormat />
+                  <input type="text" formControlName="ribTo" name="ribTo" required class="form-control form-control-lg" placeholder="RIB de destinataire" appRibFormat />
                   <div class="text-danger" *ngIf="paymentForm.get('ribTo')?.touched && paymentForm.get('ribTo')?.errors" class="text-danger">
                     Ce champ est requis
                   </div>
